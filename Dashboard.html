@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory System</title>
+    <link rel="stylesheet" href="Dashboard.css" />
+  </head>
+  <body>
+    <h1>Inventory System</h1>
+
+    <!-- Add Item Form -->
+    <div class="form-container">
+      <h2>Add Item</h2>
+      <form id="addItemForm">
+        <input type="text" id="itemName" placeholder="Item Name" required />
+        <input
+          type="number"
+          id="itemQuantity"
+          placeholder="Quantity"
+          required
+        />
+        <button type="submit">Add</button>
+      </form>
+    </div>
+
+    <!-- Inventory List -->
+    <div class="inventory-container">
+      <h2>Inventory List</h2>
+      <ul id="inventoryList">
+        <!-- Inventory items will be displayed here -->
+      </ul>
+    </div>
+
+    <script src="Dashboard.js"></script>
+  </body>
+</html>
