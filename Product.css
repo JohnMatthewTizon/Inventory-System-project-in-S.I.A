@@ -1,3 +1,23 @@
+body{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: 100vh;
+    width: 100vw;
+}
+/*Navigation Bar*/
+.navbar{
+    background-color: #353945;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-title{
+    font-size: 30px;
+    margin: 0 20px;
+}
+
 /* Product Form*/
 .form-container {
     background-color: #f2f2f2;
@@ -20,7 +40,7 @@ input[type="number"] {
     border-radius: 3px;
 }
 
-button {
+.button-add {
     background-color: #4caf50;
     color: white;
     border: none;
