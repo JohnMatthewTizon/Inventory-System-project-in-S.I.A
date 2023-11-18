@@ -44,16 +44,27 @@
                       <input type="text" id="Price" class="appFormInput" placeholder="Enter product Price..." name="Price" >
                   </div>
                   <div class=appFormInputContainer>
-                      <label for="Price">Price</label>
-                      <input type="text" id="Price" class="appFormInput" placeholder="Enter product Price..." name="Price" >
-                  </div>
-                  <div class=appFormInputContainer>
                       <label for="ProductName">Product Image</label>
                       <input type="file" name="image" value="Upload Image" >
                   </div>
                   <div class=appFormInputContainer>
-                      <label for="	AvailStocks">	Avail Stocks</label>
-                      <input type="text" id="	AvailStocks" class="appFormInput" placeholder="Enter product quantity..." name="	AvailStocks" >
+                      <label for="AvailStocks">Avail Stocks</label>
+                      <input type="text" id="	AvailStocks" class="appFormInput" placeholder="Enter product quantity..." name="AvailStocks" >
+                  </div>
+                  <div class=appFormInputContainer>
+                      <label for="	AvailStocks">Suppliers</label>
+                      <select name="suppliers" id="suppliersSelect" multiple="">
+                        <option value="">Select Supplier</option>
+                        <?php
+                          $_SESSION['table'] = 'suppliers';
+                          $suppliers = include('database/show.php');
+
+                          foreach ($suppliers as $supplier) {
+                            echo "<option value='". $supplier['id'] ."'>". $supplier['supplier_name'] ."</option>";
+                          }
+                      
+                        ?>
+                      </select>  
                   </div>
                   </div>
                   <button type="submit" class="appBtn">Add Product</button>

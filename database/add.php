@@ -5,8 +5,6 @@
     // Capture the table mappings.
     include('table_columns.php');
 
-
-
     // Capture the table name.
     $table_name = $_SESSION['table'];
     $columns = $table_columns_mapping[$table_name];
@@ -21,23 +19,29 @@
             $target_dir = "../uploads/products/";
             $file_data = $_FILES[$column];
 
+            $value = NULL;
+            $file_data = $_FILES['image'];
+
+            if ($file_data['tmp_name'] !== '') {
+                $file_name = $file_data['name'];
+                $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+                $file_name = 'product-' . time() . '.' . $file_ext;
 
 
-            $file_name = $file_data['name'];
-            $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
-            $file_name = 'product-' . time() . '.' . $file_ext;
-
-            $check = getimagesize($file_data['tmp_name']);
-            // Move the file
-            if ($check){
-                if (move_uploaded_file($file_data['tmp_name'], $target_dir . $file_name)) {
-                    // Save the file_name to the database.
-                    $value = $file_name;
+                $check = getimagesize($file_data['tmp_name']);
+                // Move the file
+                if ($check) {
+                    if(move_uploaded_file($file_data['tmp_name'], $target_dir . $file_name)){
+                        // Save the file_name to the database.
+                        $value = $file_name;
+                    }
                 }
-            } else {
-                // Do not move the files.
             }
         } 
+        //else if ($column == 'suppliers'){
+        //    var_dump($_POST);
+        //    die;
+        //}
         else $value = isset($_POST[$column]) ? $_POST[$column] : '';
 
         $db_arr[$column] = $value;
