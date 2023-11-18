@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Oct 27, 2023 at 12:50 AM
--- Server version: 8.0.31
--- PHP Version: 8.0.26
+-- Host: 127.0.0.1
+-- Generation Time: Nov 18, 2023 at 05:03 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,121 +24,57 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adminlogin`
+-- Table structure for table `productdb`
 --
 
-DROP TABLE IF EXISTS `adminlogin`;
-CREATE TABLE IF NOT EXISTS `adminlogin` (
-  `AdminID` int NOT NULL AUTO_INCREMENT,
-  `Username` varchar(50) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `EmployeeID` int DEFAULT NULL,
-  PRIMARY KEY (`AdminID`),
-  KEY `EmployeeID` (`EmployeeID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `productdb` (
+  `ProductID` int(100) NOT NULL,
+  `ProductName` varchar(255) NOT NULL,
+  `Price` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `AvailStocks` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `adminlogin`
+-- Dumping data for table `productdb`
 --
 
-INSERT INTO `adminlogin` (`AdminID`, `Username`, `Password`, `EmployeeID`) VALUES
-(1, 'kyle', 'password123', 1),
-(2, 'matthew', 'password456', 2);
+INSERT INTO `productdb` (`ProductID`, `ProductName`, `Price`, `image`, `AvailStocks`) VALUES
+(32, 'product 2', '100', 'product-1700185899.jpeg', '1000');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `delivery`
+-- Table structure for table `product_supplier`
 --
 
-DROP TABLE IF EXISTS `delivery`;
-CREATE TABLE IF NOT EXISTS `delivery` (
-  `DeliveryID` int NOT NULL AUTO_INCREMENT,
-  `ProductID` int DEFAULT NULL,
-  `DeliveryDate` date DEFAULT NULL,
-  `QuantityReceived` int DEFAULT NULL,
-  `SupplierID` int DEFAULT NULL,
-  PRIMARY KEY (`DeliveryID`),
-  KEY `ProductID` (`ProductID`),
-  KEY `SupplierID` (`SupplierID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `delivery`
---
-
-INSERT INTO `delivery` (`DeliveryID`, `ProductID`, `DeliveryDate`, `QuantityReceived`, `SupplierID`) VALUES
-(1, 1, '2023-10-04', 100, 1);
+CREATE TABLE `product_supplier` (
+  `id` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `product` int(11) NOT NULL,
+  `quantity_ordered` int(11) NOT NULL,
+  `quantity_received` int(11) NOT NULL,
+  `quantity_remaining` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employeeinformation`
+-- Table structure for table `stocks`
 --
 
-DROP TABLE IF EXISTS `employeeinformation`;
-CREATE TABLE IF NOT EXISTS `employeeinformation` (
-  `EmployeeID` int NOT NULL AUTO_INCREMENT,
-  `FirstName` varchar(50) NOT NULL,
-  `LastName` varchar(50) NOT NULL,
-  PRIMARY KEY (`EmployeeID`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `employeeinformation`
---
-
-INSERT INTO `employeeinformation` (`EmployeeID`, `FirstName`, `LastName`) VALUES
-(1, 'kyle', 'Carurucan'),
-(2, 'Matthew', 'Tizon');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `products`
---
-
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE IF NOT EXISTS `products` (
-  `ProductID` int NOT NULL AUTO_INCREMENT,
-  `ProductName` varchar(100) NOT NULL,
-  `SupplierID` int DEFAULT NULL,
-  PRIMARY KEY (`ProductID`),
-  KEY `SupplierID` (`SupplierID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`ProductID`, `ProductName`, `SupplierID`) VALUES
-(1, 'Department shirt', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stocktransactions`
---
-
-DROP TABLE IF EXISTS `stocktransactions`;
-CREATE TABLE IF NOT EXISTS `stocktransactions` (
-  `TransactionID` int NOT NULL AUTO_INCREMENT,
-  `ProductID` int DEFAULT NULL,
-  `TransactionType` enum('In','Out') NOT NULL,
-  `TransactionDate` date DEFAULT NULL,
-  `Quantity` int DEFAULT NULL,
-  `EmployeeID` int DEFAULT NULL,
-  PRIMARY KEY (`TransactionID`),
-  KEY `ProductID` (`ProductID`),
-  KEY `EmployeeID` (`EmployeeID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `stocktransactions`
---
-
-INSERT INTO `stocktransactions` (`TransactionID`, `ProductID`, `TransactionType`, `TransactionDate`, `Quantity`, `EmployeeID`) VALUES
-(1, 1, 'In', '2023-10-05', 10, 1);
+CREATE TABLE `stocks` (
+  `id` int(11) NOT NULL,
+  `product_id` int(100) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -146,19 +82,146 @@ INSERT INTO `stocktransactions` (`TransactionID`, `ProductID`, `TransactionType`
 -- Table structure for table `suppliers`
 --
 
-DROP TABLE IF EXISTS `suppliers`;
-CREATE TABLE IF NOT EXISTS `suppliers` (
-  `SupplierID` int NOT NULL AUTO_INCREMENT,
-  `SupplierName` varchar(100) NOT NULL,
-  PRIMARY KEY (`SupplierID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `suppliers` (
+  `id` int(11) NOT NULL,
+  `supplier_name` varchar(191) NOT NULL,
+  `supplier_location` varchar(191) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `suppliers`
 --
 
-INSERT INTO `suppliers` (`SupplierID`, `SupplierName`) VALUES
-(1, 'Leigh');
+INSERT INTO `suppliers` (`id`, `supplier_name`, `supplier_location`, `email`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 'Nestle', 'Nigeria', 'nestle@yahoo.com', 1, '2023-11-18 04:01:33', '2023-11-18 04:01:33'),
+(2, 'Apple', 'California', 'apple@yahoo.com', 1, '2023-11-18 04:01:33', '2023-11-18 04:01:33'),
+(3, 'Microsoft', 'Sri Lanka', 'microsoft@yahoo.com', 1, '2023-11-18 04:04:07', '2023-11-18 04:04:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'johnMatthew', 'Tizon', 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-15 11:00:22');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `productdb`
+--
+ALTER TABLE `productdb`
+  ADD PRIMARY KEY (`ProductID`);
+
+--
+-- Indexes for table `product_supplier`
+--
+ALTER TABLE `product_supplier`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `supplier` (`supplier`),
+  ADD KEY `product` (`product`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `stocks`
+--
+ALTER TABLE `stocks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `productdb`
+--
+ALTER TABLE `productdb`
+  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- AUTO_INCREMENT for table `product_supplier`
+--
+ALTER TABLE `product_supplier`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `stocks`
+--
+ALTER TABLE `stocks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `product_supplier`
+--
+ALTER TABLE `product_supplier`
+  ADD CONSTRAINT `product_supplier_ibfk_1` FOREIGN KEY (`supplier`) REFERENCES `suppliers` (`id`),
+  ADD CONSTRAINT `product_supplier_ibfk_2` FOREIGN KEY (`product`) REFERENCES `productdb` (`ProductID`),
+  ADD CONSTRAINT `product_supplier_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `stocks`
+--
+ALTER TABLE `stocks`
+  ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `stocks_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `productdb` (`ProductID`);
+
+--
+-- Constraints for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD CONSTRAINT `suppliers_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
