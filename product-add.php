@@ -44,12 +44,16 @@
                       <input type="text" id="Price" class="appFormInput" placeholder="Enter product Price..." name="Price" >
                   </div>
                   <div class=appFormInputContainer>
+                      <label for="Price">Price</label>
+                      <input type="text" id="Price" class="appFormInput" placeholder="Enter product Price..." name="Price" >
+                  </div>
+                  <div class=appFormInputContainer>
                       <label for="ProductName">Product Image</label>
                       <input type="file" name="image" value="Upload Image" >
                   </div>
                   <div class=appFormInputContainer>
-                      <label for="quantity">Quantity</label>
-                      <input type="text" id="Price" class="appFormInput" placeholder="Enter product quantity..." name="quantity" >
+                      <label for="	AvailStocks">	Avail Stocks</label>
+                      <input type="text" id="	AvailStocks" class="appFormInput" placeholder="Enter product quantity..." name="	AvailStocks" >
                   </div>
                   </div>
                   <button type="submit" class="appBtn">Add Product</button>
@@ -76,7 +80,7 @@
                       <th>Image</th>
                       <th>Product Name</th>
                       <th>Price</th>
-                      <th>Quantity</th>
+                      <th>Avail Stocks</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -89,7 +93,7 @@
                         </td>
                         <td class="lastname"><?= $product['ProductName'] ?></td>
                         <td class="email"><?= $product['Price'] ?></td>
-                        <td class="email"><?= $product['quantity'] ?></td>
+                        <td class="email"><?= $product['AvailStocks'] ?></td>
                         <td>
                           <a href="" class="updateProduct" data-pid="<?= $product['id'] ?>">Edit</a>
                           <a href="" class="deleteProduct" data-name="<?= $product['ProductName'] ?>"data-pid="<?= $product['ProductID'] ?>">Delete</a>

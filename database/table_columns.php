@@ -5,6 +5,6 @@
             'first_name', 'last_name', 'email', 'password', 'created_at', 'updated_at'
         ],
         'productdb' => [
-            'ProductName', 'Price', 'image', 'quantity'
+            'ProductName', 'Price', 'image', 'AvailStocks'
         ]
     ];
