@@ -3,11 +3,11 @@
   session_start();
   if (!isset($_SESSION['user'])) header('location: index.php');
 
-  $_SESSION['table'] = 'productdb';
+  $show_table = 'productdb';
   $_SESSION['redirect_to'] = 'product-add.php';
 
   $user = $_SESSION['user'];
-  $productdb = include('database/show.php');
+
 
 ?>
 
@@ -53,14 +53,14 @@
                   </div>
                   <div class=appFormInputContainer>
                       <label for="	AvailStocks">Suppliers</label>
-                      <select name="suppliers" id="suppliersSelect" multiple="">
+                      <select name="suppliers[]" id="suppliersSelect" multiple="">
                         <option value="">Select Supplier</option>
                         <?php
-                          $_SESSION['table'] = 'suppliers';
+                          $show_table = 'suppliers';
                           $suppliers = include('database/show.php');
 
                           foreach ($suppliers as $supplier) {
-                            echo "<option value='". $supplier['id'] ."'>". $supplier['supplier_name'] ."</option>";
+                            echo "<option value='". $supplier['id'] . "'>". $supplier['supplier_name'] ."</option>";
                           }
                       
                         ?>
@@ -80,45 +80,7 @@
                 </div>
               <?php unset($_SESSION['response']);}  ?>
             </div>
-          <div class="column">
-            <h1 class="section-header">List of Products</h1>
-            <div class="section-content">
-              <div class="users">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Image</th>
-                      <th>Product Name</th>
-                      <th>Price</th>
-                      <th>Avail Stocks</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($productdb as $index => $product) { ?>
-                      <tr>
-                        <td><?= $index + 1 ?></td>
-                        <td class="productImages">
-                          <img class="productImages" src="uploads/products/<?= $product['image']?>" alt="">
-                        </td>
-                        <td class="lastname"><?= $product['ProductName'] ?></td>
-                        <td class="email"><?= $product['Price'] ?></td>
-                        <td class="email"><?= $product['AvailStocks'] ?></td>
-                        <td>
-                          <a href="" class="updateProduct" data-pid="<?= $product['id'] ?>">Edit</a>
-                          <a href="" class="deleteProduct" data-name="<?= $product['ProductName'] ?>"data-pid="<?= $product['ProductID'] ?>">Delete</a>
-                        </td>
-                      </tr>
-
-                    <?php  } ?>
-                    
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+            <?php include('product-view.php')?>
         </div>
       </div>
     </div>

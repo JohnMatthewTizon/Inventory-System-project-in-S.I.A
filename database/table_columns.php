@@ -7,4 +7,7 @@
         'productdb' => [
             'ProductName', 'Price', 'image', 'AvailStocks'
         ]
+        //'productsuppliers' => [
+        //    'supplier', 'product','updated_at','created_at'
+        //]
     ];
