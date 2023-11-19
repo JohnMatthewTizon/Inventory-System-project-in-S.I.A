@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2023 at 05:03 AM
+-- Generation Time: Nov 19, 2023 at 01:04 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -35,12 +35,19 @@ CREATE TABLE `productdb` (
   `AvailStocks` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `productdb`
+-- Table structure for table `productsuppliers`
 --
 
-INSERT INTO `productdb` (`ProductID`, `ProductName`, `Price`, `image`, `AvailStocks`) VALUES
-(32, 'product 2', '100', 'product-1700185899.jpeg', '1000');
+CREATE TABLE `productsuppliers` (
+  `id` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `product` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -122,7 +129,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'johnMatthew', 'Tizon', 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-15 11:00:22');
+(1, 'johnMatthew', 'Tizon', 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-15 11:00:22'),
+(10, 'fhel', 'Tandingan', 'fhel@gmail.com', 'fhel', '2023-11-18 09:27:52', '2023-11-18 09:27:52');
 
 --
 -- Indexes for dumped tables
@@ -133,6 +141,14 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `crea
 --
 ALTER TABLE `productdb`
   ADD PRIMARY KEY (`ProductID`);
+
+--
+-- Indexes for table `productsuppliers`
+--
+ALTER TABLE `productsuppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product` (`product`),
+  ADD KEY `supplier` (`supplier`);
 
 --
 -- Indexes for table `product_supplier`
@@ -172,7 +188,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `productdb`
 --
 ALTER TABLE `productdb`
-  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT for table `productsuppliers`
+--
+ALTER TABLE `productsuppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `product_supplier`
@@ -196,11 +218,18 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `productsuppliers`
+--
+ALTER TABLE `productsuppliers`
+  ADD CONSTRAINT `productsuppliers_ibfk_1` FOREIGN KEY (`product`) REFERENCES `productdb` (`ProductID`),
+  ADD CONSTRAINT `productsuppliers_ibfk_2` FOREIGN KEY (`supplier`) REFERENCES `suppliers` (`id`);
 
 --
 -- Constraints for table `product_supplier`
