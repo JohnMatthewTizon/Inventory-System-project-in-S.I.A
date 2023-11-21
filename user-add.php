@@ -7,7 +7,6 @@
 
   
   $_SESSION['redirect_to'] = 'user-add.php';
-  $show_table = 'users';
   $users = include('database/show.php');
 ?>
 
@@ -34,7 +33,7 @@
           <div class="column">
             <h1 class="section-header">Insert New Admin</h1>
             <div id="userAddFormContainer">
-              <form action="database/add.php" method="POST" class="appForm">
+              <form action="database/add-123.php" method="POST" class="appForm">
                   <div class=appFormInputContainer>
                       <label for="first_name">First Name</label>
                       <input type="text" id="first_name" class="appFormInput" name="first_name" >

@@ -9,8 +9,6 @@
     $table_name = $_SESSION['table'];
     $columns = $table_columns_mapping[$table_name];
 
-
-
     // Loop Through the columns.
     $db_arr = [];
     $user = $_SESSION['user'];
@@ -91,6 +89,7 @@
                 }
             }
         }
+
 
         $response = [
             'success' => true,

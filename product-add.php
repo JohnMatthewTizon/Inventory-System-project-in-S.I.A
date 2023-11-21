@@ -2,8 +2,8 @@
   //Start the session.
   session_start();
   if (!isset($_SESSION['user'])) header('location: index.php');
+  $_SESSION['table'] = 'productdb';
 
-  $show_table = 'productdb';
   $_SESSION['redirect_to'] = 'product-add.php';
 
   $user = $_SESSION['user'];
@@ -34,7 +34,7 @@
           <div class="column">
             <h1 class="section-header">Add Product</h1>
             <div id="userAddFormContainer">
-              <form action="database/add.php" method="POST" class="appForm" enctype="multipart/form-data">
+              <form action="database/add-123.php" method="POST" class="appForm" enctype="multipart/form-data">
                   <div class=appFormInputContainer>
                       <label for="ProductName">Product Name</label>
                       <input type="text" id="ProductName" class="appFormInput" placeholder="Enter product name..." name="ProductName" >
@@ -56,7 +56,7 @@
                       <select name="suppliers[]" id="suppliersSelect" multiple="">
                         <option value="">Select Supplier</option>
                         <?php
-                          $show_table = 'suppliers';
+                          $_SESSION['table'] = 'suppliers';
                           $suppliers = include('database/show.php');
 
                           foreach ($suppliers as $supplier) {
@@ -65,7 +65,6 @@
                       
                         ?>
                       </select>  
-                  </div>
                   </div>
                   <button type="submit" class="appBtn">Add Product</button>
               </form>
@@ -85,68 +84,5 @@
       </div>
     </div>
   <?php include('partials/app-scripts.php'); ?>
-  <script>
-    function script(){
-
-      this.registerEvents = function(){
-        document.addEventListener('click', function(e){
-          targetElement = e.target; // Target element
-          classList = targetElement.classList;
-          
-          if(classList.contains("deleteProduct")){
-            e.preventDefault(); // this prevents the default mechanism.
-
-            pId = targetElement.dataset.pid;
-            pName = targetElement.dataset.name;
-
-            BootstrapDialog.confirm({
-              type: BootstrapDialog.TYPE_DANGER,
-              title: 'Delete Product',
-              message: 'Are you sure to delete <strong>'+ pName +'</strong>?',
-              callback: function(isDelete){
-                if(isDelete){
-                  $.ajax({
-                  method: 'POST',
-                  data: {
-                    id: pId,
-                    table: 'productdb'
-                  },
-                  url: 'database/delete.php',
-                  dataType: 'json',
-                    success: function(data){
-                      message = data.success ?
-                        pName + ' successfully deleted!' : 'Error processing your request!';
-                      
-                      BootstrapDialog.alert({
-                        type: data.success ? BootstrapDialog.TYPE_SUCCESS : BootstrapDialog.TYPE_DANGER,
-                        message: message,
-                        callback: function(){
-                          if(data.success) location.reload();
-                        }
-                      });
-                    }
-                  });
-                }else {
-                  alert('cancelled');
-                }
-
-                
-              }
-            });
-          }
-        });
-      }
-      
-
-      this.initialize = function(){
-        this.registerEvents();
-      } 
-
-
-    }
-
-    var script = new script;
-    script.initialize();
-  </script>
   </body>
 </html>

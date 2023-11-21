@@ -6,7 +6,7 @@
 
 
   $user = $_SESSION['user'];
-  $show_table = 'productdb';
+  $_SESSION['table'] = 'productdb';
   $productdb = include('database/show.php');
   
 ?>
@@ -31,7 +31,6 @@
                       <th>ID</th>
                       <th>Image</th>
                       <th>Product Name</th>
-                      <th>Suppliers</th>
                       <th>Price</th>
                       <th>Avail Stocks</th>
                       <th>Action</th>
@@ -45,31 +44,6 @@
                           <img class="productImages" src="uploads/products/<?= $product['image']?>" alt="">
                         </td>
                         <td class="lastname"><?= $product['ProductName'] ?></td>
-                        <td class="lastname">
-                          <?php
-                            $supplier_list = '-';
-
-                            $pid = $product['ProductID'];
-                            $stmt = $conn->prepare("
-                              SELECT supplier_name
-                                FROM suppliers, productsuppliers
-                                WHERE
-                                  productsuppliers.product=$pid
-                                    AND
-                                  productsuppliers.supplier = suppliers.id
-                              ");
-
-                            $stmt->execute();
-                            $row = $stmt->FetchAll(PDO::FETCH_ASSOC);
-
-                            if ($row) {
-                              $supplier_arr = array_column($row, 'supplier_name');
-                              $supplier_list = '<li>' . implode("</li><li>", $supplier_arr);
-                            }
-
-                            echo $supplier_list;
-                          ?>
-                        </td>
                         <td class="email"><?= $product['Price'] ?></td>
                         <td class="email"><?= $product['AvailStocks'] ?></td>
                         <td>
