@@ -14,6 +14,7 @@
     $user = $_SESSION['user'];
     foreach ($columns as $column) {
         if(in_array($column, ['created_at', 'updated_at'])) $value =  date('Y-m-d H:i:s');
+        else if ($column == 'created_by') $value = $user['id'];
         else if ($column == 'image') {
             //upload or move the file to directory
             $target_dir = "../uploads/products/";
