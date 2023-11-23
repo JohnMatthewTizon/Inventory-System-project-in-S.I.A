@@ -24,7 +24,7 @@
     <!-- dashboard content -->
     <div class="dashboard-content">
         <div class="dashboard_content_main">
-
+          <?php include('productSupplier.php')?>
         </div>
     </div>
     <?php include('partials/app-scripts.php'); ?>

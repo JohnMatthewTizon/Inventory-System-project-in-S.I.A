@@ -9,5 +9,8 @@
         ],
         'suppliers' => [
             'supplier_name', 'supplier_location', 'email', 'created_by', 'created_at', 'updated_at'
+        ],
+        'productsuppliers' => [
+            'supplier', 'product', 'updated_at', 'created_at'
         ]
     ];

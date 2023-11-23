@@ -79,8 +79,8 @@
                 </div>
               <?php unset($_SESSION['response']);}  ?>
             </div>
-            <?php include('product-view.php')?>
         </div>
+        <?php include('product-view.php')?>
       </div>
     </div>
   <?php include('partials/app-scripts.php'); ?>

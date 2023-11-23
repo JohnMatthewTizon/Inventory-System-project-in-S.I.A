@@ -8,7 +8,6 @@
   $user = $_SESSION['user'];
   $_SESSION['table'] = 'productdb';
   $productdb = include('database/show.php');
-  
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +46,6 @@
                         <td class="email"><?= $product['Price'] ?></td>
                         <td class="email"><?= $product['AvailStocks'] ?></td>
                         <td>
-                          <a href="" class="updateProduct" data-pid="<?= $product['id'] ?>">Edit</a>
                           <a href="" class="deleteProduct" data-name="<?= $product['ProductName'] ?>"data-pid="<?= $product['ProductID'] ?>">Delete</a>
                         </td>
                       </tr>
@@ -60,9 +58,7 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+          
   <?php include('partials/app-scripts.php'); ?>
   <script>
     function script(){

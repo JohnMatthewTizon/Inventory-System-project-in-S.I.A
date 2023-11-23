@@ -269,3 +269,31 @@ img.productImages{
     height: 100%;
     border-color: #d2d2d2;
 }
+.box{
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 31px;
+}
+.reportType{
+    border: 1px solid #c2c6c2;
+    padding: 10px 24px;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 14px;
+    margin-left: 21px;
+    width: 100%;
+}
+.reportExportBtn{
+    padding: 4px 15px;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: #f685a1;
+    color: white;
+    margin-right: 13px;
+}
+.reportType p{
+    font-size: 18px;
+    font-weight: 200px;
+    margin-bottom: 10px;
+}

@@ -6,9 +6,8 @@
 
 
   $user = $_SESSION['user'];
-  $_SESSION['table'] = 'suppliers';
-  $suppliers = include('database/show.php');
-
+  $_SESSION['table'] = 'productsuppliers';
+  $productsuppliers = include('database/show.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,51 +15,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Supplier - Inventory System</title>
+    <title>Product - Inventory System</title>
 
     <?php include('partials/app-header-scripts.php'); ?>
   </head>
   <body>
           <div class="column">
-            <h1 class="section-header">List of Suppliers</h1>
+            <h1 class="section-header">List of Informations Ordered</h1>
             <div class="section-content">
               <div class="users">
                 <table>
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Supplier Name</th>
-                      <th>Location</th>
-                      <th>Email</th>
-                      <th>Created_by</th>
-                      <th>Created_at</th>
-                      <th>Updated-at</th>
-                      <th>Action</th>
+                      <th>Supplier</th>
+                      <th>Product</th>
+                      <th>Updated at</th>
+                      <th>Created at</th>\
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($suppliers as $index => $supplier) { ?>
+                    <?php foreach ($productsuppliers as $index => $productSupp) { ?>
                       <tr>
                         <td><?= $index + 1 ?></td>
-                        <td class="lastname"><?= $supplier['supplier_name'] ?></td>
-                        <td class="lastname"><?= $supplier['supplier_location'] ?></td>
-                        <td class="email"><?= $supplier['email'] ?></td>
                         <td>
                             <?php
-                                $uid = $supplier['created_by'];
-                                $stmt = $conn->prepare("SELECT * FROM users WHERE id=$uid");
+                                $uid = $productSupp['supplier'];
+                                $stmt = $conn->prepare("SELECT * FROM suppliers WHERE id=$uid");
                                 $stmt->execute();
                                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                                $created_by_name = $row['first_name'] . ' ' . $row['last_name'];
+                                $created_by_name = $row['supplier_name'];
                                 echo $created_by_name; 
                             ?>
                         </td>
-                        <td><?= date('M d, Y @ h:i:s: A' , strtotime($supplier['created_at'])) ?></td>
-                        <td><?= date('M d, Y @ h:i:s: A' , strtotime($supplier['updated_at'])) ?></td>
                         <td>
-                          <a href="" class="deleteSupplier" data-name="<?= $supplier['supplier_name'] ?>"data-sid="<?= $supplier['id'] ?>">Delete</a>
+                            <?php
+                                $uid = $productSupp['product'];
+                                $stmt = $conn->prepare("SELECT * FROM productdb WHERE ProductID=$uid");
+                                $stmt->execute();
+                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                                $created_by_name = $row['ProductName'];
+                                echo $created_by_name; 
+                            ?>
                         </td>
+                        <td class="email"><?= $productSupp['updated_at'] ?></td>
+                        <td class="email"><?= $productSupp['created_at'] ?></td>
                       </tr>
 
                     <?php  } ?>
@@ -71,9 +72,7 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+
   <?php include('partials/app-scripts.php'); ?>
   <script>
     function script(){
@@ -83,29 +82,29 @@
           targetElement = e.target; // Target element
           classList = targetElement.classList;
           
-          if(classList.contains("deleteSupplier")){
+          if(classList.contains("deleteProduct")){
             e.preventDefault(); // this prevents the default mechanism.
 
-            sId = targetElement.dataset.sid;
-            supplierName = targetElement.dataset.name;
+            pId = targetElement.dataset.pid;
+            pName = targetElement.dataset.name;
 
             BootstrapDialog.confirm({
               type: BootstrapDialog.TYPE_DANGER,
-              title: 'Delete Supplier',
-              message: 'Are you sure to delete <strong>'+ supplierName +'</strong>?',
+              title: 'Delete Product',
+              message: 'Are you sure to delete <strong>'+ pName +'</strong>?',
               callback: function(isDelete){
                 if(isDelete){
                   $.ajax({
                   method: 'POST',
                   data: {
-                    id: sId,
-                    table: 'suppliers'
+                    id: pId,
+                    table: 'productdb'
                   },
-                  url: 'database/delete-supplier.php',
+                  url: 'database/delete.php',
                   dataType: 'json',
                     success: function(data){
                       message = data.success ?
-                        supplierName + ' successfully deleted!' : 'Error processing your request!';
+                        pName + ' successfully deleted!' : 'Error processing your request!';
                       
                       BootstrapDialog.alert({
                         type: data.success ? BootstrapDialog.TYPE_SUCCESS : BootstrapDialog.TYPE_DANGER,

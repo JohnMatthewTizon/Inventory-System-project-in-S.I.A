@@ -60,8 +60,8 @@
                 </div>
               <?php unset($_SESSION['response']);}  ?>
             </div>
-            <?php include('supplier-view.php')?>
         </div>
+        <?php include('supplier-view.php')?>
       </div>
     </div>
   <?php include('partials/app-scripts.php'); ?>
