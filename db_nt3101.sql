@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2023 at 01:04 PM
+-- Generation Time: Nov 23, 2023 at 04:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -35,6 +35,14 @@ CREATE TABLE `productdb` (
   `AvailStocks` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `productdb`
+--
+
+INSERT INTO `productdb` (`ProductID`, `ProductName`, `Price`, `image`, `AvailStocks`) VALUES
+(64, 'Organizational Shrit', '550', 'product-1700743519.png', '200'),
+(65, 'Department shirt', '550', 'product-1700751825.png', '100');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +56,14 @@ CREATE TABLE `productsuppliers` (
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `productsuppliers`
+--
+
+INSERT INTO `productsuppliers` (`id`, `supplier`, `product`, `updated_at`, `created_at`) VALUES
+(16, 6, 64, '2023-11-23 13:45:19', '2023-11-23 13:45:19'),
+(17, 9, 65, '2023-11-23 16:03:45', '2023-11-23 16:03:45');
 
 -- --------------------------------------------------------
 
@@ -64,21 +80,6 @@ CREATE TABLE `product_supplier` (
   `quantity_remaining` int(11) NOT NULL,
   `status` varchar(20) NOT NULL,
   `created_by` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stocks`
---
-
-CREATE TABLE `stocks` (
-  `id` int(11) NOT NULL,
-  `product_id` int(100) NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -104,9 +105,8 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `supplier_name`, `supplier_location`, `email`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'Nestle', 'Nigeria', 'nestle@yahoo.com', 1, '2023-11-18 04:01:33', '2023-11-18 04:01:33'),
-(2, 'Apple', 'California', 'apple@yahoo.com', 1, '2023-11-18 04:01:33', '2023-11-18 04:01:33'),
-(3, 'Microsoft', 'Sri Lanka', 'microsoft@yahoo.com', 1, '2023-11-18 04:04:07', '2023-11-18 04:04:07');
+(6, 'test_supplier', 'lipa', 'testsupplier@gmail.com', 1, '2023-11-23 13:38:05', '2023-11-23 13:38:05'),
+(9, 'test_supplier2', 'lipa2', 'testsupplier2@gmail.com', 1, '2023-11-23 16:03:28', '2023-11-23 16:03:28');
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`) VALUES
 (1, 'johnMatthew', 'Tizon', 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-15 11:00:22'),
-(10, 'fhel', 'Tandingan', 'fhel@gmail.com', 'fhel', '2023-11-18 09:27:52', '2023-11-18 09:27:52');
+(34, 'fhel', 'Tandingan', 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-22 09:12:52', '2023-11-22 09:12:52'),
+(36, 'kian', 'kalaw', 'kian@gmail.com', 'johnmatthew', '2023-11-23 15:58:47', '2023-11-23 15:58:47');
 
 --
 -- Indexes for dumped tables
@@ -160,14 +161,6 @@ ALTER TABLE `product_supplier`
   ADD KEY `created_by` (`created_by`);
 
 --
--- Indexes for table `stocks`
---
-ALTER TABLE `stocks`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `product_id` (`product_id`);
-
---
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -188,13 +181,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `productdb`
 --
 ALTER TABLE `productdb`
-  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `productsuppliers`
 --
 ALTER TABLE `productsuppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `product_supplier`
@@ -203,33 +196,20 @@ ALTER TABLE `product_supplier`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `stocks`
---
-ALTER TABLE `stocks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `productsuppliers`
---
-ALTER TABLE `productsuppliers`
-  ADD CONSTRAINT `productsuppliers_ibfk_1` FOREIGN KEY (`product`) REFERENCES `productdb` (`ProductID`),
-  ADD CONSTRAINT `productsuppliers_ibfk_2` FOREIGN KEY (`supplier`) REFERENCES `suppliers` (`id`);
 
 --
 -- Constraints for table `product_supplier`
@@ -238,19 +218,6 @@ ALTER TABLE `product_supplier`
   ADD CONSTRAINT `product_supplier_ibfk_1` FOREIGN KEY (`supplier`) REFERENCES `suppliers` (`id`),
   ADD CONSTRAINT `product_supplier_ibfk_2` FOREIGN KEY (`product`) REFERENCES `productdb` (`ProductID`),
   ADD CONSTRAINT `product_supplier_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `stocks`
---
-ALTER TABLE `stocks`
-  ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `stocks_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `productdb` (`ProductID`);
-
---
--- Constraints for table `suppliers`
---
-ALTER TABLE `suppliers`
-  ADD CONSTRAINT `suppliers_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
