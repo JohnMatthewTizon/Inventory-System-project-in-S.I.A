@@ -5,8 +5,8 @@
 
 
 
-  $user = $_SESSION['user'];
-  $_SESSION['table'] = 'suppliers';
+
+  $show_table = 'suppliers';
   $suppliers = include('database/show.php');
 
 ?>
@@ -32,9 +32,6 @@
                       <th>Supplier Name</th>
                       <th>Location</th>
                       <th>Email</th>
-                      <th>Created_by</th>
-                      <th>Created_at</th>
-                      <th>Updated-at</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -45,19 +42,6 @@
                         <td class="lastname"><?= $supplier['supplier_name'] ?></td>
                         <td class="lastname"><?= $supplier['supplier_location'] ?></td>
                         <td class="email"><?= $supplier['email'] ?></td>
-                        <td>
-                            <?php
-                                $uid = $supplier['created_by'];
-                                $stmt = $conn->prepare("SELECT * FROM users WHERE id=$uid");
-                                $stmt->execute();
-                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                                $created_by_name = $row['first_name'] . ' ' . $row['last_name'];
-                                echo $created_by_name; 
-                            ?>
-                        </td>
-                        <td><?= date('M d, Y @ h:i:s: A' , strtotime($supplier['created_at'])) ?></td>
-                        <td><?= date('M d, Y @ h:i:s: A' , strtotime($supplier['updated_at'])) ?></td>
                         <td>
                           <a href="" class="deleteSupplier" data-name="<?= $supplier['supplier_name'] ?>"data-sid="<?= $supplier['id'] ?>">Delete</a>
                         </td>

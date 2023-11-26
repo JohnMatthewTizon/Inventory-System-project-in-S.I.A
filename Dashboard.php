@@ -3,7 +3,22 @@
   session_start();
   if (!isset($_SESSION['user'])) header('location: index.php');
 
-  $user = $_SESSION['user'];
+           // Include the database connection file
+           include('database/connection.php');
+
+           // SQL query to retrieve data from the table
+           $sql = "SELECT * FROM tbempinfo";
+           $result = $conn->query($sql);
+           $result->execute();
+
+           if ($result->rowCount() > 0) {
+             $result->setFetchMode(PDO::FETCH_ASSOC);
+             $empinfo = $result->fetchAll()[0];
+
+             $_SESSION['empinfo'] = $empinfo;
+           }
+    
+  $empinfo = $_SESSION['empinfo'];
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +39,7 @@
     <!-- dashboard content -->
     <div class="dashboard-content">
         <div class="dashboard_content_main">
-          <?php include('productSupplier.php')?>
+
         </div>
     </div>
     <?php include('partials/app-scripts.php'); ?>

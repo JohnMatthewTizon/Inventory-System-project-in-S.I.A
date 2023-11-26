@@ -2,7 +2,7 @@
   //Start the session.
   session_start();
   if (!isset($_SESSION['user'])) header('location: index.php');
-  $_SESSION['table'] = 'productdb';
+  $_SESSION['table'] = 'products';
 
   $_SESSION['redirect_to'] = 'product-add.php';
 
@@ -48,15 +48,11 @@
                       <input type="file" name="image" value="Upload Image" >
                   </div>
                   <div class=appFormInputContainer>
-                      <label for="AvailStocks">Avail Stocks</label>
-                      <input type="text" id="	AvailStocks" class="appFormInput" placeholder="Enter product quantity..." name="AvailStocks" >
-                  </div>
-                  <div class=appFormInputContainer>
                       <label for="	AvailStocks">Suppliers</label>
                       <select name="suppliers[]" id="suppliersSelect" multiple="">
                         <option value="">Select Supplier</option>
                         <?php
-                          $_SESSION['table'] = 'suppliers';
+                          $show_table = 'suppliers';
                           $suppliers = include('database/show.php');
 
                           foreach ($suppliers as $supplier) {

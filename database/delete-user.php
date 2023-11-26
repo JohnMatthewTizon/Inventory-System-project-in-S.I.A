@@ -1,8 +1,7 @@
 <?php
     $data = $_POST;
     $user_id = (int) $data['user_id'];
-    $first_name = $data['f_name'];
-    $last_name = $data['l_name'];
+    $user_email = $data['user_emial'];
 
     try {
         
@@ -14,7 +13,7 @@
         
         echo json_encode([
             'success' => true,
-            'message' => $first_name. ' ' .$last_name. ' successfully deleted.'
+                'message' => $user_email. ' successfully deleted.'
         ]);
     } catch (\PDOException $e) {
         echo json_encode([

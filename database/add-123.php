@@ -12,9 +12,11 @@
     // Loop Through the columns.
     $db_arr = [];
     $user = $_SESSION['user'];
+    $tbempinfo = $_SESSION['tbempid'];
+    $empinfo = $_SESSION['empinfo'];
     foreach ($columns as $column) {
         if(in_array($column, ['created_at', 'updated_at'])) $value =  date('Y-m-d H:i:s');
-        else if ($column == 'created_by') $value = $user['id'];
+        else if ($column == 'adminId') $value = $user['id'];
         else if ($column == 'image') {
             //upload or move the file to directory
             $target_dir = "../uploads/products/";
@@ -36,9 +38,11 @@
                         // Save the file_name to the database.
                         $value = $file_name;
                     }
+                }else {
+                    //Do not move the files
                 }
             }
-        } 
+        }
         else $value = isset($_POST[$column]) ? $_POST[$column] : '';
         $db_arr[$column] = $value;
     }
@@ -66,7 +70,7 @@
         $product_id = $conn->lastInsertId();
 
         // Add supplier
-        if ($table_name === 'productdb') {
+        if ($table_name === 'products') {
             $suppliers = isset($_POST['suppliers']) ? $_POST['suppliers'] : [];
             if ($suppliers) {
                 // Loop through the suppliers and add record

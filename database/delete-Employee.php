@@ -1,13 +1,13 @@
 <?php
     $data = $_POST;
-    $id = (int) $data['id'];
-    $table = $data['table'];
+    $id = (int) $data['emp_Id'];
+    $firstname = $data['emp_fname'];
 
     
-    
+
     try {
         
-        $command = "DELETE FROM $table WHERE id ={$id}";
+        $command = "DELETE FROM tbempinfo WHERE empid ={$id}";
     
         include('connection.php');
 

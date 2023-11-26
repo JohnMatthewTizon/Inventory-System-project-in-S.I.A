@@ -1,16 +1,19 @@
 <?php
 
     $table_columns_mapping = [
-        'productdb' => [
-            'ProductName', 'Price', 'image', 'AvailStocks'
+        'products' => [
+            'ProductName', 'adminId', 'Price', 'image',
         ],
         'users' => [
-            'first_name', 'last_name', 'email', 'password', 'created_at', 'updated_at'
+            'email', 'password', 'created_at', 'updated_at', 'emp'
         ],
         'suppliers' => [
-            'supplier_name', 'supplier_location', 'email', 'created_by', 'created_at', 'updated_at'
+            'supplier_name', 'supplier_location', 'email'
         ],
         'productsuppliers' => [
             'supplier', 'product', 'updated_at', 'created_at'
+        ],
+        'tbempinfo' => [
+            'lastname', 'firstname', 'department'
         ]
     ];
