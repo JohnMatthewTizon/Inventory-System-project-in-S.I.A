@@ -269,6 +269,13 @@ img.productImages{
     height: 100%;
     border-color: #d2d2d2;
 }
+#products{
+    display: block;
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    border-color: #d2d2d2;
+}
 .box{
     display: flex;
     justify-content: flex-start;

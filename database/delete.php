@@ -3,13 +3,27 @@
     $id = (int) $data['id'];
     $table = $data['table'];
 
-    
+
     
     try {
-        
+        include('connection.php');
+
+        //Delete junction table
+        if ($table === 'suppliers') {
+            $supplier_id = $id;
+            $command = "DELETE FROM productsuppliers WHERE supplier={$id}";
+            $conn->exec($command);
+        }
+        if ($table === 'products') {
+            $supplier_id = $id;
+            $command = "DELETE FROM productsuppliers WHERE product={$id}";
+            $conn->exec($command);
+        }
+
+        //Delete main table.
         $command = "DELETE FROM $table WHERE id ={$id}";
     
-        include('connection.php');
+
 
         $conn->exec($command);
         

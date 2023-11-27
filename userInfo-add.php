@@ -2,13 +2,10 @@
   //Start the session.
   session_start();
   if (!isset($_SESSION['user'])) header('location: index.php');
-  $_SESSION['table'] = 'suppliers';
-
-  $_SESSION['redirect_to'] = 'supplier-add.php';
-
-  $user = $_SESSION['user'];
-
-
+  $show_table = 'tbempinfo';
+  $_SESSION['table'] = 'tbempinfo';
+  $_SESSION['redirect_to'] = 'userInfo-add.php';
+  $tbempinfo = include('database/show.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +13,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Supplier - Inventory System</title>
+    <title>User - Inventory System</title>
 
     <?php include('partials/app-header-scripts.php'); ?>
   </head>
@@ -32,22 +29,22 @@
       <div class="dashboard_content_main">
         <div class="row">
           <div class="column">
-            <h1 class="section-header">Add Supplier</h1>
+            <h1 class="section-header">Insert New Employee Information</h1>
             <div id="userAddFormContainer">
-              <form action="database/add-123.php" method="POST" class="appForm" enctype="multipart/form-data">
+            <form action="database/add-123.php" method="POST" class="appForm">
                   <div class=appFormInputContainer>
-                      <label for="supplier_name">Supplier Name</label>
-                      <input type="text" id="supplier_name" class="appFormInput" placeholder="Enter supplier name..." name="supplier_name" >
+                      <label for="firstname">First Name</label>
+                      <input type="text" id="firstname" class="appFormInput" name="firstname" >
                   </div>
                   <div class=appFormInputContainer>
-                      <label for="supplier_location">Location</label>
-                      <input type="text" id="supplier_location" class="appFormInput" placeholder="Enter location of the supplier..." name="supplier_location" >
+                      <label for="lastname">Last Name</label>
+                      <input type="text" id="lastname" class="appFormInput" name="lastname" >
                   </div>
                   <div class=appFormInputContainer>
-                      <label for="email">email</label>
-                      <input type="email" id="email" class="appFormInput" placeholder="Enter email of the supplier..." name="email" >
+                      <label for="department">Department</label>
+                      <input type="text" id="department" class="appFormInput" name="department" >
                   </div>
-                  <button type="submit" class="appBtn">Add Supplier</button>
+                  <button type="submit" class="appBtn">Add Admin Info</button>
               </form>
               <?php if (isset($_SESSION['response'])) { 
                         $response_message = $_SESSION['response']['message'];
@@ -55,14 +52,16 @@
               ?>
                 <div class="responseMessage">
                   <p class="responseMessage <?= $is_success ? 'responseMessage_success' : 'responseMessage_error' ?>">
-                    <?= $response_message ?>
+                    <?=   $response_message ?>
                   </p>
                 </div>
               <?php unset($_SESSION['response']);}  ?>
             </div>
         </div>
+        <?php include('userInfo-view.php'); ?>
       </div>
     </div>
   <?php include('partials/app-scripts.php'); ?>
+
   </body>
 </html>

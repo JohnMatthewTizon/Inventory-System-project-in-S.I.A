@@ -8,7 +8,7 @@
             'email', 'password', 'created_at', 'updated_at', 'emp'
         ],
         'suppliers' => [
-            'supplier_name', 'supplier_location', 'email'
+            'supplier_name', 'supplier_location', 'email', 'adminId'
         ],
         'productsuppliers' => [
             'supplier', 'product', 'updated_at', 'created_at'

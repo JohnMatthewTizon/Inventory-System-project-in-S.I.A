@@ -1,6 +1,6 @@
 <?php
   //Start the session.
-
+  session_start();
   if (!isset($_SESSION['user'])) header('location: index.php');
 
 
@@ -20,7 +20,16 @@
     <?php include('partials/app-header-scripts.php'); ?>
   </head>
   <body>
-    
+    <!-- navigation bar -->
+    <?php include('partials/navigation-bar.php')?>
+    <!-- Heading section includes logo, title and search bar -->
+    <?php include('partials/heading-bar.php')?>
+    <!-- Button Section -->
+    <?php include('partials/button-bar.php')?>
+    <!-- dashboard content -->
+    <div class="dashboard-content">
+      <div class="dashboard_content_main">
+        <div class="row">
           <div class="column">
             <h1 class="section-header">List of Products</h1>
             <div class="section-content">
@@ -95,9 +104,29 @@
               </div>
             </div>
           </div>
-          
-  <?php include('partials/app-scripts.php'); ?>
+        </div>
+      </div>
+    </div>
+  <?php 
+        include('partials/app-scripts.php'); 
+        
+        $show_table = 'suppliers';
+        $suppliers = include('database/show.php');
+
+        $supplier_arr = [];
+
+        foreach ($suppliers as $supplier) {
+          $supplier_arr[$supplier['id']] = $supplier['supplier_name'];
+        }
+
+        $supplier_arr = json_encode($supplier_arr);
+
+
+  ?>
   <script>
+    var suppliersList =  <?= $supplier_arr ?>;
+
+
     function script(){
       var vm = this;
       this.registerEvents = function(){
@@ -191,6 +220,15 @@
 
       this.showEditDialog = function(id){
         $.get('database/get-product.php', {id: id}, function(productDetails){
+            let curSuppliers = productDetails['suppliers'];
+            let supplierOption = '';
+
+            for(const [supId, supName] of Object.entries(suppliersList)) {
+              selected = curSuppliers.indexOf(supId) > -1 ? 'selected' : '';
+              supplierOption += "<option "+ selected +" value='"+ supId +"'>"+ supName +"</option>";
+            }
+
+
             BootstrapDialog.confirm({
               title: 'Update <strong>' + productDetails.ProductName + '</strong>',
               message: '<form action="database/add-123.php" method="POST" enctype="multipart/form-data" id="editProductForm">\
@@ -207,8 +245,11 @@
                 <input type="file" name="image">\
               </div>\
               <div class=appFormInputContainer>\
-                <label for="suppliers">Suppliers</label>\
-                <input type="text" id="suppliers" class="appFormInput" placeholder="Edit Supplier.." name="supplier" >\
+                <label for="	AvailStocks">Suppliers</label>\
+                  <select name="suppliers[]" id="suppliersSelect" multiple="">\
+                    <option value="">Select Supplier</option>\
+                    '+ supplierOption +'\
+                  </select>\
               </div>\
               <input type="hidden" name="pid" value="'+ productDetails.id +'" />\
               <input type="submit" value="submit" id="editProductSubmitBtn" class="hidden" />\
@@ -218,17 +259,13 @@
 
               callback: function(isUpdate){
                 if(isUpdate){ // if user click 'OK' button
-
                   document.getElementById('editProductSubmitBtn').click();      
 
                 }
               }
             });
         }, 'json');
-
-
-
-      }
+      },
       
       this.initialize = function(){
         this.registerEvents();
