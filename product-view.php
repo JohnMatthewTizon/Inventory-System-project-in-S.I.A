@@ -6,6 +6,7 @@
 
 
   $user = $_SESSION['user'];
+  //Get all the products
   $show_table = 'products';
   $products = include('database/show.php');
 ?>
