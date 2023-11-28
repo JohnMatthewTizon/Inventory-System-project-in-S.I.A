@@ -123,9 +123,9 @@
 
   ?>
   <script>
-    function script(){
-      var productsList =  <?= $products_arr ?>;
+    var productsList =  <?= $products_arr ?>;
 
+    function script(){  
 
       var vm = this;
       this.registerEvents = function(){

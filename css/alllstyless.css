@@ -170,6 +170,7 @@ div.dashboard_content_main{
     background: #fff;
     min-height: 800px;
     height: 500px;
+    margin-left: 30px;
 }
 
 
@@ -339,6 +340,54 @@ div.orderProductRow{
     background: #ff5858;
     color: #fff;
     float: right;
+}
+.poList{
+    margin-bottom: 25px;
+    padding: 15px;
+    border-bottom: solid 1px #d1d1d1;
+    border-radius: 5px;
+    background: #fbfbfb;
+}
+.poList p{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #d55f7d;
+    font-size: 16px;
+}
+.poList table td, .poList table th{
+    border: none;
+    border-bottom: dotted 1px #b7b7b7;
+}
+.poList table th{
+    padding: 14px 10px;
+}
+.poList table{
+    border: none;
+}
+.poOrderUpdateBtnContainer{
+    margin-top: 20px;
+}
+.updatePoBtn{
+    color: #f685a1;
+    background: #fff;
+    border: 1px solid #f685a1;
+}
+.updatePoBtn:hover{
+    color: #fff;
+    background: #f685a1;
+}
+.po-badge{
+    padding: 4px 6px;
+    border: 1px solid green;
+    background: #b5ebb5;
+}
+.po-badge-ORDERED{
+    background: #ff7c76;
+    border-color: #556455;
+}
+.po-badge-ARRIVED{
+    background: #b5ebb5;
+    border-color: green;
 }
 .box{
     display: flex;

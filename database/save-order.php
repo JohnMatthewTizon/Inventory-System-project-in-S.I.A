@@ -30,7 +30,7 @@ try {
             'supplier' => $sid,
             'product' => $pid,
             'quantity_ordered' => $qty,
-            'status' => 'ORDERED',
+            'status' => 'pending',
             'batch' => $batch,
             'adminId' => $_SESSION['user']['id'],
             'created_at' => date('Y-m-d H:i:s'),
