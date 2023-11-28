@@ -31,17 +31,30 @@
           <div class="column">
             <h1 class="section-header">Order Product</h1>
             <div>
-              <div class="alignRight">
-                <button class="orderBtn orderProductBtn" id="orderProductBtn">Add Another Product</button>
-              </div>
+              <form action="database/save-order.php" method="POST">
+                <div class="alignRight">
+                  <button type="button" class="orderBtn orderProductBtn" id="orderProductBtn">Add Another Product</button>
+                </div>
 
-              <div id="orderProductLists"  style="padding-left:30px;">
-              </div>
-                
-              <div class="alignRight marginTop20">
-                <button class="orderBtn submitOrderProductBtn">Submit Order</button>
-              </div>
+                <div id="orderProductLists"  style="padding-left:30px;">
+                  <p id="noData">No products selected</p>
+                </div>
+                  
+                <div class="alignRight marginTop20">
+                  <button type="submit" class="orderBtn submitOrderProductBtn">Submit Order</button>
+                </div>
+              </form>
             </div>
+            <?php if (isset($_SESSION['response'])) { 
+                        $response_message = $_SESSION['response']['message'];
+                        $is_success = $_SESSION['response']['success'];
+            ?>
+              <div class="responseMessage">
+                <p class="responseMessage <?= $is_success ? 'responseMessage_success' : 'responseMessage_error' ?>">
+                  <?= $response_message ?>
+                </p>
+                </div>
+            <?php unset($_SESSION['response']);}  ?>
           </div>
         </div>
       </div>
@@ -59,10 +72,11 @@
       let productOptions =  '\
       <div>\
         <label for="ProductName">Product Name</label>\
-        <select name="ProductName" class="productNameSelect" id="ProductName">\
+        <select name="products[]" class="productNameSelect" id="ProductName">\
           <option value="">Select Product</option>\
           INSERTPRODUCTHERE\
         </select>\
+        <button class="btn removeOrderBtn">Remove</button>\
       </div>';
       
 
@@ -90,6 +104,7 @@
 
           // Add new product order event
           if (targetElement.id === 'orderProductBtn') {
+            document.getElementById('noData').style.display = 'none';
             let orderProductListContainer = document.getElementById('orderProductLists');
 
             orderProductLists.innerHTML += '\
@@ -99,6 +114,14 @@
                   </div>';
 
                   counter++;
+          }
+
+          // if remove button os clicked
+          if (targetElement.classList.contains('removeOrderBtn')) {
+
+            let orderRow = targetElement.closest('div.orderProductRow');
+            // Remove element.
+            orderRow.remove();
           }
         });
         
@@ -130,7 +153,7 @@
                           </div>\
                           <div style="width:50%;">\
                             <label for="quantity">Quantity: </label>\
-                            <input type="number" id="quantity" class="appFormInput orderProductQty"  placeholder="Enter Quantity name..." name="quantity" >\
+                            <input type="number" id="quantity" class="appFormInput orderProductQty"  placeholder="Enter Quantity name..." name="quantity['+ counterId +']['+ supplier.id +']" >\
                           </div>\
                         </div>';
         });                        

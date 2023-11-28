@@ -329,6 +329,17 @@ div.orderProductRow{
 .suppliersRows .row{
     padding: 8px 0px;
 }
+.btn{
+    border: none;
+    padding: 4px 8px;
+    background: #ff5858;
+    border-radius: 2px;
+}
+.removeOrderBtn{
+    background: #ff5858;
+    color: #fff;
+    float: right;
+}
 .box{
     display: flex;
     justify-content: flex-start;

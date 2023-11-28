@@ -110,6 +110,6 @@
     $_SESSION['response'] = $response;
     header('location: ../'  .$_SESSION['redirect_to']);
 
-
+?>
 
     
