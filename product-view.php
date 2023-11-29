@@ -41,6 +41,7 @@
                       <th>ID</th>
                       <th>Image</th>
                       <th>Product Name</th>
+                      <th>Stock</th>
                       <th>Supplier</th>
                       <th>Admin</th>
                       <th>Price</th>
@@ -55,6 +56,7 @@
                           <img class="productImages" src="uploads/products/<?= $product['image']?>" alt="">
                         </td>
                         <td class="lastname"><?= $product['ProductName'] ?></td>
+                        <td class="lastname"><?= number_format($product['stock']) ?></td>
                         <td>
                             <?php
 
