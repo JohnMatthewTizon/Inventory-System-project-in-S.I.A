@@ -82,7 +82,7 @@
                                 <td class="po_qty_ordered"><?= $batch_po['quantity_ordered']?></td>
                                 <td class="po_qty_received"><?= $batch_po['quantity_received']?></td>
                                 <td class="po_qty_supplier"><?= $batch_po['supplier_name']?></td>
-                                <td><span class="po-badge po_qty_status"><?= $batch_po['status']?></span></td>
+                                <td class="po_qty_status"><span class="po-badge po_qty_status"><?= $batch_po['status']?></span></td>
                                 <td><?= $batch_po['email']?></td>
                                 <td>
                                     <?= $batch_po['created_at']?>
@@ -117,18 +117,33 @@
             if(classList.contains('updatePoBtn')){
                 e.preventDefault();
 
-                batchNumber = targetElement.dataset.id;
-
+                batchNumberContainer = 'container-' + targetElement.dataset.id;
+                
                 // Get all purchase order product records
-                contaierE1 = document.getElementById('')
 
-                product = document.querySelector('#' + BatchNumber + '.po_product'),
-                qtyOrdered = document.querySelector('#' + BatchNumber + '.po_qty_ordered'),
-                qtyReceived = document.querySelector('#' + BatchNumber + '.po_qty_received'),
-                supplier = document.querySelector('#' + BatchNumber + '.po_qty_supplier'),
-                status = document.querySelector('#' + BatchNumber + '.po_qty_status')
+                productList = document.querySelectorAll('#' + batchNumberContainer + ' .po_product');
+                qtyOrderedList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_ordered');
+                qtyReceivedList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_received');
+                supplierList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_supplier');
+                statusList = document.querySelectorAll('#' + batchNumberContainer + ' .po_qty_status');
 
-                console.log(product, qtyOrdered, qtyReceived, supplier, status);
+                poListsArr = [];
+
+                for (i=0;i<productList.length;i++){
+                  poListsArr.push({
+                    name: productList[i].innerText,
+                    qtyOrdered: qtyOrderedList[i].innerText,
+                    qtyReceived: qtyReceivedList[i].innerText,
+                    supplier: supplierList[i].innerText,
+                    status: statusList[i].innerText,
+                  });
+                }
+                
+
+                productList.forEach((product, key) => {
+                  poListsArr[key]['product'] = product.innerText;
+                });
+
                 return;
             }
         })
