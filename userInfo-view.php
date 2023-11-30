@@ -67,7 +67,7 @@
           classList = targetElement.classList;
 
           
-          if(classList.contains("deleteUser")){
+          if(classList.contains("deleteEmployee")){
             e.preventDefault();
 
             empId = targetElement.dataset.userid;
@@ -76,7 +76,7 @@
 
             BootstrapDialog.confirm({
               type: BootstrapDialog.TYPE_DANGER,
-              message: 'Are you sure to delete '+ Firstname +'?',
+              message: 'Are you sure to delete <strong>'+ Firstname +'</strong>?',
               callback: function(isDelete){
                 $.ajax({
                   method: 'POST',
@@ -90,7 +90,7 @@
                           if(data.success){
                               BootstrapDialog.alert({
                                 type: BootstrapDialog.TYPE_SUCCESS,
-                                message: data.message,
+                                message: Firstname + ' Successfully deleted.',
                                 callback: function(){
                                   location.reload();
                                 }
@@ -104,52 +104,6 @@
                 });
               }
             });
-          }
-
-          if(classList.contains("updateUser")){
-            e.preventDefault(); // prevent from refreshing or loading.
-
-            // Get data.
-            email = targetElement.closest('tr').querySelector('td.email').innerHTML;
-            userId = targetElement.dataset.userid;
-
-            BootstrapDialog.confirm({
-              title: "Update " + email,
-              message: '<form>\
-                <div class="form-group">\
-                  <label for="email">Email address:</label>\
-                  <input type="email" class="form-control" id="emailUpdate" value="'+ email +'">\
-                </div>\
-              </form>',
-              callback: function(isUpdate){
-                if(isUpdate){ // if user click 'OK' button
-                  $.ajax({
-                    method: 'POST',
-                    data: {
-                      userId: userId,
-                      email: document.getElementById('emailUpdate').value
-                    },
-                    url: 'database/update-user.php',
-                    dataType: 'json',
-                    success: function(data){
-                      if(data.success){
-                        BootstrapDialog.alert({
-                          type: BootstrapDialog.TYPE_SUCCESS,
-                          message: data.message,
-                          callback: function(){
-                            location.reload();
-                          }
-                        });
-                      }else 
-                        BootstrapDialog.alert({
-                          type: BootstrapDialog.TYPE_DANGER,
-                          message: data.message,
-                        });
-                    }
-                  })
-                }
-              }
-            })
           }
         });
       }

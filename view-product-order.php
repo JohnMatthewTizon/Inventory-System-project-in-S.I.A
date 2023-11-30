@@ -272,7 +272,27 @@
 
               $.get('database/view-delivery-history.php', {id, id}, function(data){
                 if (data.length) {
-                  deliveryHistoryHtml + 
+                            rows = '';
+                            data.forEach((row, id) => {
+                              rows += '\
+                              <tr>\
+                                  <td>'+ (id + 1) +'</td>\
+                                  <td>'+ (new Date(row['date_received'])).toString() +'</td>\
+                                  <td>'+ row['qty_received'] +'</td>\
+                                </tr>';
+                            });
+
+                            deliveryHistoryHtml ='<table class="deliveryHistoryTable">\
+                              <thead>\
+                                <tr>\
+                                  <th>#</th>\
+                                  <th>Date Received</th>\
+                                  <th>Quantity Received</th>\
+                                </tr>\
+                              </thead>\
+                              <tbody>'+ rows +'</tbody>\
+                            </table>\
+                            ';
 
 
 

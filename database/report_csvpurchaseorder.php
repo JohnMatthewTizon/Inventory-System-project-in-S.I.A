@@ -3,7 +3,7 @@
     $file_name = '.xls';
 
     $mapping_filenames = [
-        'order_product_history' => 'Delivery Report'
+        'product_in' => 'Purchase Order'
     ];
 
     $file_name = $mapping_filenames[$type] . '.xls';
@@ -14,30 +14,30 @@
     include('connection.php');
 
     //pull data from database
-    if ($type === 'order_product_history') {
+    if ($type === 'product_in') {
     
     
-        $stmt = $conn->prepare("SELECT * FROM order_product_history");
+        $stmt = $conn->prepare("SELECT * FROM product_in");
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         
-        $order_product_history = $stmt->fetchAll();
+        $product_in = $stmt->fetchAll();
 
         //
         $is_headers = true;
-        foreach ($order_product_history as $oph) {
+        foreach ($product_in as $pi) {
             if ($is_headers) {
-                $row = array_keys($oph);
+                $row = array_keys($pi);
                 $is_headers = false;
                 echo implode("\t", $row) . "\n";
             }
 
-            array_walk($oph, function(&$str){
+            array_walk($pi, function(&$str){
                 $str = preg_replace("/\t/", "\\t", $str);
                 $str = preg_replace("/\r?\n/", "\\n", $str);
                 if(strstr($str, '""')) $str = '""' . str_replace('"', '""', $str) . '"';
             });
 
-            echo implode("\t", $oph) . "\n";
+            echo implode("\t", $pi) . "\n";
         }
     }

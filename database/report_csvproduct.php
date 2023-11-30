@@ -17,7 +17,7 @@
     if ($type === 'product') {
     
     
-        $stmt = $conn->prepare("SELECT * FROM productdb");
+        $stmt = $conn->prepare("SELECT * FROM products");
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         

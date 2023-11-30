@@ -1,6 +1,6 @@
 <?php
     $data = $_POST;
-    $id = (int) $data['emp_Id'];
+    $id = (int) $data['emp_id'];
     $firstname = $data['emp_fname'];
 
     

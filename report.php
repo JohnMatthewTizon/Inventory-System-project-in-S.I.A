@@ -41,7 +41,13 @@
                     <div class="reportType">
                         <p>Export Deliveries</p>
                         <div class="alignRight">
-                            <a href="database/report_csvproductSuppliers.php?report=productSuppliers" class="reportExportBtn">Export</a>
+                            <a href="database/report_csvproductSuppliers.php?report=order_product_history" class="reportExportBtn">Export</a>
+                        </div>
+                    </div>
+                    <div class="reportType">
+                        <p>Export Purchase Order</p>
+                        <div class="alignRight">
+                            <a href="database/report_csvpurchaseorder.php?report=product_in" class="reportExportBtn">Export</a>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2023 at 12:43 PM
+-- Generation Time: Nov 30, 2023 at 12:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,13 +35,6 @@ CREATE TABLE `order_product_history` (
   `date_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `order_product_history`
---
-
-INSERT INTO `order_product_history` (`id`, `order_product_id`, `qty_received`, `date_received`, `date_updated`) VALUES
-(4, 9, 20, '2023-11-29 11:28:36', '2023-11-29 11:28:36');
-
 -- --------------------------------------------------------
 
 --
@@ -62,11 +55,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `ProductName`, `adminId`, `Price`, `image`, `stock`) VALUES
-(73, 'Department shirt', 1, '400', 'product-1700985708.png', 20),
-(75, 'Department tags', 37, '100', 'product-1701146087.png', 0),
-(76, 'Department Jersy', 37, '750', 'product-1701146212.jpg', 0),
-(77, 'Department Tickler', 37, '250', 'product-1701146317.png', 0),
-(79, 'Department Jertsy 2', 37, '1000', 'product-1701153070.jpg', 0);
+(73, 'Department shirt', 1, '400', 'product-1700985708.png', 30);
 
 -- --------------------------------------------------------
 
@@ -81,17 +70,6 @@ CREATE TABLE `productsuppliers` (
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `productsuppliers`
---
-
-INSERT INTO `productsuppliers` (`id`, `supplier`, `product`, `updated_at`, `created_at`) VALUES
-(22, 6, 73, '2023-11-28 05:33:03', '2023-11-28 05:33:03'),
-(26, 9, 75, '2023-11-28 05:35:38', '2023-11-28 05:35:38'),
-(27, 12, 76, '2023-11-28 05:37:28', '2023-11-28 05:37:28'),
-(28, 14, 77, '2023-11-28 05:39:27', '2023-11-28 05:39:27'),
-(29, 15, 79, '2023-11-28 07:32:03', '2023-11-28 07:32:03');
 
 -- --------------------------------------------------------
 
@@ -113,28 +91,6 @@ CREATE TABLE `product_in` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `product_in`
---
-
-INSERT INTO `product_in` (`id`, `supplier`, `product`, `quantity_ordered`, `quantity_received`, `quantity_remaining`, `status`, `batch`, `adminId`, `created_at`, `updated_at`) VALUES
-(9, 6, 73, 123, 20, 103, 'complete', '1701246782', 37, '2023-11-29 09:33:02', '2023-11-29 09:33:02'),
-(10, 6, 73, 100, 50, 50, 'pending', '1701248709', 37, '2023-11-29 10:05:09', '2023-11-29 10:05:09'),
-(11, 15, 79, 200, 110, 190, 'pending', '1701248709', 37, '2023-11-29 10:05:09', '2023-11-29 10:05:09');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product_out`
---
-
-CREATE TABLE `product_out` (
-  `id` int(11) NOT NULL,
-  `supplier` int(11) NOT NULL,
-  `product` int(11) NOT NULL,
-  `quantity_ordered` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -154,11 +110,7 @@ CREATE TABLE `suppliers` (
 --
 
 INSERT INTO `suppliers` (`id`, `supplier_name`, `supplier_location`, `email`, `adminId`) VALUES
-(6, 'Department Shirt Supplier', 'balintawak', 'DepartmentShirtSupplier@gmail.com', 1),
-(9, 'Department tags Supplier', 'levitown', 'DepartmenttagsSupplier@gmail.com222', 1),
-(12, 'Department Jersy Supplier', 'Inosloban', 'DepartmentJersySupplier@gmail.com', 37),
-(14, 'Department Tickler Supplier', 'mataas na kahoy', 'DepartmentTicklerSupplier@gmail.com', 37),
-(15, 'Department Jertsy 2 Supplier', 'Cuenca', 'DepartmentJertsy2Supplier@gmail.com', 37);
+(6, 'Department Shirt Supplier', 'balintawak', 'DepartmentShirtSupplier@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -178,13 +130,7 @@ CREATE TABLE `tbempinfo` (
 --
 
 INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
-(1, 'tizon', 'john matthew', 'AICSS'),
-(2, 'carurucan', 'kyle', 'cics'),
-(4, 'quizon', 'julyan', 'CABE'),
-(8, 'tizon', 'jamine', 'CICS'),
-(9, 'Tandingan', 'fhel', 'AICSS'),
-(10, 'kalaw', 'Shaen', 'ACCCCC'),
-(11, 'tandingan', 'felipe', 'ACCCCC');
+(1, 'aguila', 'nina', 'cics');
 
 -- --------------------------------------------------------
 
@@ -206,8 +152,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `created_at`, `updated_at`, `emp`) VALUES
-(1, 'johnmatthew300@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-26 10:05:23', 1),
-(37, 'kyle300@gmail.com', 'kyle123', '2023-11-24 00:25:33', '2023-11-25 09:32:05', 2);
+(1, 'johnmatthew300@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-26 10:05:23', 1);
 
 --
 -- Indexes for dumped tables
@@ -272,7 +217,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `order_product_history`
 --
 ALTER TABLE `order_product_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`

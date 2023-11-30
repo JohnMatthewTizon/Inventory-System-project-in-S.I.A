@@ -1,7 +1,7 @@
 <?php
     $data = $_POST;
     $user_id = (int) $data['user_id'];
-    $user_email = $data['user_emial'];
+    $user_email = $data['user_email'];
 
     try {
         
